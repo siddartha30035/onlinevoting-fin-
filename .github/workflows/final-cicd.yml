@@ -40,7 +40,7 @@ jobs:
         echo "✅ Backend build completed!"
     
     - name: Upload Backend JAR
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: backend-jar
         path: online-voting-backend-1/target/*.jar
@@ -73,7 +73,7 @@ jobs:
         echo "✅ Frontend build completed!"
     
     - name: Upload Frontend Build
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: frontend-dist
         path: onlinevotingsystem/dist/
@@ -95,13 +95,13 @@ jobs:
         submodules: true
     
     - name: Download Backend JAR
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: backend-jar
         path: online-voting-backend-1/target/
     
     - name: Download Frontend Build
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: frontend-dist
         path: onlinevotingsystem/dist/
