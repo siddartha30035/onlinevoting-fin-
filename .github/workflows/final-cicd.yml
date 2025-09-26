@@ -5,6 +5,9 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+# Customize the name of the workflow run
+run-name: 🚀 Deploy by @${{ github.actor }} - ${{ github.event_name }}
+
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME_BACKEND: siddartha30035/onlinevoting-backend
