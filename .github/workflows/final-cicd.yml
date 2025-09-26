@@ -7,8 +7,8 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME_BACKEND: ${{ github.repository }}/backend
-  IMAGE_NAME_FRONTEND: ${{ github.repository }}/frontend
+  IMAGE_NAME_BACKEND: siddartha30035/onlinevoting-backend
+  IMAGE_NAME_FRONTEND: siddartha30035/onlinevoting-frontend
 
 jobs:
   # Build Backend
