@@ -1,0 +1,121 @@
+/* Page background */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #000; /* Black background */
+  font-family: Arial, sans-serif;
+}
+
+/* Login box */
+.login-box {
+  background-color: #1a1a1a; /* Darker black */
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #ff0000; /* Red glow */
+  width: 350px;
+  text-align: center;
+  color: #fff;
+}
+
+.login-box h2 {
+  margin-bottom: 30px;
+  color: #ff0000; /* Red title */
+}
+
+/* Input group styling */
+.input-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #ff4d4d; /* Label red */
+}
+
+/* Input fields with gradient background */
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ff0000;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #1a0000, #000); /* Dark red to black */
+  color: #ff4d4d; /* Red text */
+  transition: 0.3s;
+}
+
+/* Specific styling for email field */
+input[type="email"] {
+  background: linear-gradient(135deg, #1a0000, #000);
+  color: #ff4d4d;
+  border: 1px solid #ff0000;
+}
+
+/* Fix browser autofill for email */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #1a0000 inset; /* dark red background */
+  -webkit-text-fill-color: #ff4d4d; /* red text */
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Placeholder text */
+.input-group input::placeholder {
+  color: #ff9999;
+  opacity: 1;
+}
+
+/* Input focus effect */
+.input-group input:focus {
+  outline: none;
+  border: 1px solid #ff4d4d;
+  box-shadow: 0 0 8px #ff0000; /* Red glow on focus */
+}
+
+/* Password wrapper for eye icon */
+.password-wrapper {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  user-select: none;
+  font-size: 18px;
+}
+
+/* Button styling */
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #ff0000;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #cc0000;
+}
+.register-link {
+  color: #ff4d4d;        /* Bright red for visibility */
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.register-link:hover {
+  color: #cc0000;        /* Darker red on hover */
+  text-decoration: none;  /* Optional: remove underline on hover */
+}
+

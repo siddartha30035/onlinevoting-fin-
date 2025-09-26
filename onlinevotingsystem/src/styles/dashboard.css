@@ -1,0 +1,206 @@
+:root {
+  --bg-dark: #121212;
+  --bg-gradient: linear-gradient(135deg, #121212 60%, #b22222 120%);
+  --navbar-gradient: linear-gradient(90deg, #b22222 70%, #ff4444 100%);
+  --primary-red: #b22222;
+  --accent-red: #ff4444;
+  --glow-red: #ff4444aa;
+  --shadow-dark: 0 6px 24px 0 rgba(50,0,0,0.5), 0 1.5px 6px 0 rgba(255,68,68,0.25);
+  --text-major: #fff;
+  --text-minor: #e0e0e0;
+}
+
+/* Reset & Base */
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  min-height: 100vh;
+  background: var(--bg-gradient);
+  color: var(--text-major);
+  transition: background 0.6s, color 0.4s;
+  line-height: 1.6;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--navbar-gradient);
+  padding: 16px 40px;
+  box-shadow: var(--shadow-dark);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1.5px solid var(--accent-red);
+  animation: navbarGlow 2s infinite alternate;
+}
+
+@keyframes navbarGlow {
+  0% {
+    box-shadow: 0 6px 24px 0 rgba(50,0,0,0.55);
+  }
+  100% {
+    box-shadow: 0 6px 32px 0 var(--glow-red);
+  }
+}
+
+/* Nav links */
+.nav-left {
+  display: flex;
+  gap: 32px;
+}
+
+.navbar a {
+  color: var(--text-major);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 9px 16px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #b22222 85%, #ff4444 100%);
+  box-shadow: 0 2px 8px 0 rgba(255,68,68,0.13);
+  transition: background 0.4s, transform 0.13s, box-shadow 0.25s;
+}
+
+.navbar a:hover, .navbar a:focus {
+  background: linear-gradient(90deg, #ff4444 70%, #b22222 100%);
+  color: #fff;
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 0 12px 0 #ff4444cc;
+}
+
+/* Profile */
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.profile-menu {
+  position: relative;
+}
+
+.profile-icon {
+  font-size: 30px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  background: none;
+  transition: background 0.25s, box-shadow 0.4s;
+}
+
+.profile-icon:hover {
+  background: rgba(255,68,68,0.19);
+  box-shadow: 0 0 14px 0 var(--accent-red);
+}
+
+/* Dropdown */
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 46px;
+  right: 0;
+  background: #1c1c1c;
+  border: 1px solid var(--primary-red);
+  border-radius: 10px;
+  min-width: 170px;
+  box-shadow: 0 8px 32px 0 #b22222bb;
+  flex-direction: column;
+  overflow: hidden;
+  animation: fadeIn 0.3s ease;
+}
+
+.profile-menu:hover .dropdown,
+.profile-menu:focus-within .dropdown {
+  display: flex;
+}
+
+.dropdown button {
+  background: none;
+  color: var(--text-major);
+  border: none;
+  padding: 13px 20px;
+  font-size: 16px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.28s, color 0.24s;
+}
+
+.dropdown button:hover, .dropdown button:focus {
+  background: var(--accent-red);
+  color: #fff;
+  text-shadow: 0 0 8px #fff2;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-11px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+/* Dashboard Content */
+.dashboard-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 82px);
+  flex-direction: column;
+  text-align: center;
+  padding: 24px;
+  background: none;
+}
+
+.welcome-message {
+  font-size: 54px;
+  font-weight: bold;
+  color: var(--accent-red);
+  margin-bottom: 14px;
+  text-shadow: 0 10px 32px #b22222aa, 0 1px 2px #ff4444;
+  letter-spacing: 2px;
+  animation: textFade 9s infinite alternate;
+}
+
+@keyframes textFade {
+  from { color: #ff4444;}
+  to { color: #b22222;}
+}
+
+.subtext {
+  font-size: 22px;
+  color: var(--text-minor);
+  margin-top: 10px;
+  text-shadow: 0 1.5px 6px #121212af;
+}
+
+/* Card styling (if you add dashboard panels) */
+.dashboard-card {
+  background: linear-gradient(135deg, #191919 76%, #b22222 100%);
+  border-radius: 14px;
+  box-shadow: 0 2.4px 16px rgba(178,34,34,.29), 0 0.8px 2.8px #ff444465;
+  color: var(--text-major);
+  padding: 32px 30px;
+  margin: 18px 0;
+  transition: box-shadow 0.3s, transform 0.22s;
+}
+
+.dashboard-card:hover, .dashboard-card:focus {
+  box-shadow: 0 6px 42px 0 #ff4444cc;
+  transform: scale(1.03);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-left {
+    gap: 18px;
+  }
+  .navbar a {
+    font-size: 14px;
+    padding: 7px 9px;
+  }
+  .welcome-message {
+    font-size: 32px;
+  }
+  .dashboard-content {
+    padding: 14px;
+  }
+}

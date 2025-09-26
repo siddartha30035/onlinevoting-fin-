@@ -1,0 +1,125 @@
+/* Ensure full page black */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #000;
+  font-family: Arial, sans-serif;
+}
+
+/* Center the registration box */
+.registration-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Registration box */
+.registration-box {
+  background-color: #1a1a1a;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #ff0000;
+  width: 500px; /* Increased container width */
+  color: #fff;
+}
+
+.registration-box h2 {
+  margin-bottom: 30px;
+  text-align: center;
+  color: #ff0000;
+}
+
+/* Input group with horizontal layout */
+.input-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 10px; /* Space between label and input */
+}
+
+/* Labels on left */
+.input-group label {
+  width: 120px; /* Fixed width for labels */
+  text-align: right;
+  color: #ff4d4d;
+  font-weight: bold;
+}
+
+/* Inputs and textarea */
+.input-group input,
+.input-group textarea {
+  flex: 1; /* Take remaining space */
+  padding: 10px;
+  border: 1px solid #ff0000;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #1a0000, #000);
+  color: #ff4d4d;
+  transition: 0.3s;
+}
+
+.input-group input::placeholder,
+.input-group textarea::placeholder {
+  color: #ff9999;
+  opacity: 1;
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+  outline: none;
+  border: 1px solid #ff4d4d;
+  box-shadow: 0 0 8px #ff0000;
+}
+
+/* Password wrapper for toggle */
+.password-wrapper {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  user-select: none;
+  font-size: 18px;
+}
+
+/* Gender options */
+.gender-options {
+  display: flex;
+  gap: 15px;
+  color: #ff4d4d;
+}
+
+.gender-options input[type="radio"] {
+  margin-right: 5px;
+}
+
+/* Button */
+button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #ff0000;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #cc0000;
+}
+.error {
+  color: #ff4d4d;
+  font-size: 12px;
+  margin-top: -15px;
+  margin-bottom: 10px;
+  text-align: left;
+  padding-left: 125px; /* Align with input field */
+}

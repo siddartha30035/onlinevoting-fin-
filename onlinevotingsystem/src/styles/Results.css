@@ -1,0 +1,111 @@
+:root {
+  --bg-dark: #121212;
+  --card-dark: #1e1e1e;
+  --primary-red: #b22222;
+  --accent-red: #ff3333;
+  --glow-red: #ff4444cc;
+  --text-major: #ffffff;
+  --text-minor: #bbbbbb;
+  --shadow-red: 0 6px 24px rgba(255, 51, 51, 0.25);
+}
+
+/* Results Container */
+.results-container {
+  background: var(--bg-dark);
+  color: var(--text-major);
+  padding: 2.5rem;
+  border-radius: 14px;
+  max-width: 850px;
+  margin: 80px auto;
+  text-align: center;
+  box-shadow: var(--shadow-red);
+  border: 1px solid var(--accent-red);
+  min-height: 300px; /* ensures visible container */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Title */
+.results-container h1 {
+  color: var(--accent-red);
+  margin-bottom: 25px;
+  font-size: 2.2rem;
+  text-shadow: 0 0 12px var(--glow-red);
+}
+
+/* Results Table */
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 25px;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 0 14px rgba(255, 51, 51, 0.3);
+}
+
+.results-table th,
+.results-table td {
+  border: 1px solid var(--accent-red);
+  padding: 14px;
+  text-align: center;
+}
+
+.results-table th {
+  background: linear-gradient(135deg, var(--accent-red), var(--primary-red));
+  color: var(--text-major);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.results-table tr:nth-child(even) {
+  background: var(--card-dark);
+}
+
+.results-table tr:nth-child(odd) {
+  background: #2a2a2a;
+}
+
+.results-table tr:hover {
+  background: rgba(255, 51, 51, 0.15);
+}
+
+/* Winner Row */
+.winner-row {
+  background: linear-gradient(135deg, #4caf50, #2e7d32) !important;
+  color: #fff;
+  font-weight: bold;
+  text-shadow: 0 0 8px #00ff80cc;
+}
+
+/* Winner Message */
+.winner-message {
+  margin-top: 20px;
+  color: var(--accent-red);
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-shadow: 0 0 10px var(--glow-red);
+}
+
+/* No Results */
+.no-results {
+  text-align: center;
+  color: var(--accent-red);
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-shadow: 0 0 10px var(--glow-red);
+  animation: pulse 1.8s infinite alternate;
+}
+
+@keyframes pulse {
+  from {
+    text-shadow: 0 0 8px var(--glow-red);
+    opacity: 0.8;
+  }
+  to {
+    text-shadow: 0 0 16px var(--accent-red), 0 0 32px var(--glow-red);
+    opacity: 1;
+  }
+}

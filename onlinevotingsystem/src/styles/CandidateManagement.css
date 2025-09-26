@@ -1,0 +1,115 @@
+/* Candidate Container */
+.candidate-container {
+  background: var(--bg-gradient);
+  color: var(--text-major);
+  min-height: 100vh;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Title */
+.candidate-container h1 {
+  color: var(--accent-red);
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  text-shadow: 0 4px 14px var(--glow-red), 0 1px 2px #000;
+  animation: textFade 6s infinite alternate;
+}
+
+/* Candidate Form */
+.candidate-form {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.candidate-form input {
+  padding: 12px 14px;
+  border: 2px solid var(--primary-red);
+  border-radius: 8px;
+  background: #1c1c1c;
+  color: var(--text-major);
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+.candidate-form input:focus {
+  outline: none;
+  border-color: var(--accent-red);
+  box-shadow: 0 0 12px var(--glow-red);
+}
+
+/* Form Button */
+.candidate-form button {
+  background: linear-gradient(90deg, var(--primary-red) 75%, var(--accent-red) 100%);
+  border: none;
+  padding: 12px 22px;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(255, 68, 68, 0.3);
+  transition: background 0.35s, transform 0.15s, box-shadow 0.25s;
+}
+
+.candidate-form button:hover {
+  background: linear-gradient(90deg, var(--accent-red) 70%, var(--primary-red) 100%);
+  transform: scale(1.07) translateY(-2px);
+  box-shadow: 0 0 14px var(--glow-red);
+}
+
+/* Candidate List */
+.candidate-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.candidate-list li {
+  background: linear-gradient(135deg, #191919 70%, var(--primary-red) 100%);
+  margin: 12px auto;
+  padding: 14px 20px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 60%;
+  border: 1.5px solid var(--accent-red);
+  box-shadow: 0 2.5px 10px rgba(255, 68, 68, 0.25);
+  transition: transform 0.22s, box-shadow 0.3s;
+}
+
+.candidate-list li:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 24px var(--glow-red);
+}
+
+.candidate-list span {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--text-major);
+}
+
+/* Candidate Action Button */
+.candidate-list button {
+  background: var(--accent-red);
+  border: none;
+  padding: 8px 14px;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.28s, transform 0.15s;
+}
+
+.candidate-list button:hover {
+  background: var(--primary-red);
+  transform: scale(1.08);
+}
+
+/* No Candidate Message */
+.no-candidate {
+  color: var(--text-minor);
+  font-style: italic;
+  margin-top: 1rem;
+}
