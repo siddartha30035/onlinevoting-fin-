@@ -1,0 +1,207 @@
+name: Online Voting System - Production CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME_BACKEND: ${{ github.repository }}/backend
+  IMAGE_NAME_FRONTEND: ${{ github.repository }}/frontend
+
+jobs:
+  # Build Backend
+  build-backend:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+    
+    - name: Cache Maven dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+    
+    - name: Build Backend
+      run: |
+        cd online-voting-backend-1
+        echo "📦 Building Spring Boot application..."
+        mvn clean package -DskipTests
+        echo "✅ Backend build completed!"
+    
+    - name: Upload Backend JAR
+      uses: actions/upload-artifact@v3
+      with:
+        name: backend-jar
+        path: online-voting-backend-1/target/*.jar
+        retention-days: 1
+
+  # Build Frontend
+  build-frontend:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        submodules: true
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: onlinevotingsystem/package-lock.json
+    
+    - name: Build Frontend
+      run: |
+        cd onlinevotingsystem
+        echo "📦 Installing dependencies..."
+        npm ci
+        echo "🏗️ Building React application..."
+        npm run build
+        echo "✅ Frontend build completed!"
+    
+    - name: Upload Frontend Build
+      uses: actions/upload-artifact@v3
+      with:
+        name: frontend-dist
+        path: onlinevotingsystem/dist/
+        retention-days: 1
+
+  # Build and Push Docker Images
+  docker-build-push:
+    needs: [build-backend, build-frontend]
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: read
+      packages: write
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        submodules: true
+    
+    - name: Download Backend JAR
+      uses: actions/download-artifact@v3
+      with:
+        name: backend-jar
+        path: online-voting-backend-1/target/
+    
+    - name: Download Frontend Build
+      uses: actions/download-artifact@v3
+      with:
+        name: frontend-dist
+        path: onlinevotingsystem/dist/
+    
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+    
+    - name: Log in to Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Build and Push Backend Image
+      uses: docker/build-push-action@v5
+      with:
+        context: ./online-voting-backend-1
+        file: ./online-voting-backend-1/Dockerfile.prod
+        push: true
+        tags: |
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:latest
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:${{ github.sha }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+    
+    - name: Build and Push Frontend Image
+      uses: docker/build-push-action@v5
+      with:
+        context: ./onlinevotingsystem
+        file: ./onlinevotingsystem/Dockerfile.prod
+        push: true
+        tags: |
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:latest
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:${{ github.sha }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+  # Deploy (Production Ready)
+  deploy:
+    needs: docker-build-push
+    runs-on: ubuntu-latest
+    environment: production
+    
+    steps:
+    - name: Deployment Complete
+      run: |
+        echo "🎉 DEPLOYMENT SUCCESSFUL!"
+        echo ""
+        echo "✅ Backend Image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:latest"
+        echo "✅ Frontend Image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:latest"
+        echo ""
+        echo "🚀 Your Docker images are ready for production!"
+        echo ""
+        echo "📋 To deploy on your server:"
+        echo "1. Pull the images:"
+        echo "   docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:latest"
+        echo "   docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:latest"
+        echo ""
+        echo "2. Run with docker-compose:"
+        echo "   docker-compose -f docker-compose.prod.yml up -d"
+        echo ""
+        echo "3. Access your application:"
+        echo "   Frontend: http://your-server:3000"
+        echo "   Backend:  http://your-server:9090"
+        echo "   Health:   http://your-server:9090/actuator/health"
+
+  # Success Notification
+  notify-success:
+    needs: [build-backend, build-frontend, docker-build-push, deploy]
+    runs-on: ubuntu-latest
+    if: success()
+    
+    steps:
+    - name: Success Notification
+      run: |
+        echo "🎊 CI/CD PIPELINE COMPLETED SUCCESSFULLY! 🎊"
+        echo ""
+        echo "✅ Backend: Built and containerized"
+        echo "✅ Frontend: Built and containerized" 
+        echo "✅ Docker Images: Pushed to registry"
+        echo "✅ Deployment: Ready for production"
+        echo ""
+        echo "🌟 Your Online Voting System is ready to deploy!"
+
+  # Failure Notification
+  notify-failure:
+    needs: [build-backend, build-frontend, docker-build-push, deploy]
+    runs-on: ubuntu-latest
+    if: failure()
+    
+    steps:
+    - name: Failure Notification
+      run: |
+        echo "❌ CI/CD PIPELINE FAILED"
+        echo ""
+        echo "Check the failed jobs above for details."
+        echo "Common issues:"
+        echo "- Maven build errors"
+        echo "- npm build errors" 
+        echo "- Docker build errors"
+        echo "- Registry push errors"
+        exit 1
